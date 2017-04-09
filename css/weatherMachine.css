@@ -1,0 +1,52 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons-wind.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.css');
+a {
+  text-decoration: none;
+  color:#000;
+}
+
+#degreeConverter {
+  border: none;
+  background-color: transparent;
+  outline:none;
+}
+
+#image {
+  font-size: 2em;
+}
+
+.weatherApp {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #007CE1;
+}
+
+.weatherItem {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+body,html {
+  width: 100%;
+  height:100%;
+  display: flex;
+  justify-content: center;
+  background-color: #191919;
+  font-size: 1.5em;
+}
+
+p {
+  text-transform: uppercase;
+}
+
+#degreeConverter {
+  color:red;
+  font-size: 1.05em;
+}
