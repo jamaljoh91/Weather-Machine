@@ -22109,12 +22109,187 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"placeholder.jpg":[function(require,module,exports) {
+module.exports = "/placeholder.eac74941.jpg";
+},{}],"Forecast.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _placeholder = _interopRequireDefault(require("./placeholder.jpg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Forecast =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Forecast, _React$Component);
+
+  function Forecast() {
+    _classCallCheck(this, Forecast);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Forecast).apply(this, arguments));
+  }
+
+  _createClass(Forecast, [{
+    key: "render",
+    //True values will come in as props from parent
+    value: function render() {
+      var _this$props = this.props,
+          day = _this$props.day,
+          highTemp = _this$props.highTemp,
+          lowTemp = _this$props.lowTemp,
+          weather = _this$props.weather;
+      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", null, day), _react.default.createElement("img", {
+        style: {
+          width: "500px",
+          height: "200px"
+        },
+        src: _placeholder.default,
+        alt: "google"
+      }), _react.default.createElement("p", null, highTemp, "\xB0"), _react.default.createElement("p", null, lowTemp, "\xB0"));
+    }
+  }]);
+
+  return Forecast;
+}(_react.default.Component);
+
+var _default = Forecast;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./placeholder.jpg":"placeholder.jpg"}],"Results.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Forecast = _interopRequireDefault(require("./Forecast"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Results =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Results, _React$Component);
+
+  function Results() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
+    _classCallCheck(this, Results);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Results)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      forecast: [{
+        day: "Monday",
+        highTemp: 90,
+        lowTemp: 70,
+        weather: "Cloudy"
+      }, {
+        day: "Tuesday",
+        highTemp: 80,
+        lowTemp: 50,
+        weather: "Sunny"
+      }, {
+        day: "Wednesday",
+        highTemp: 30,
+        lowTemp: 71,
+        weather: "Rainy"
+      }, {
+        day: "Thursday",
+        highTemp: 10,
+        lowTemp: 17,
+        weather: "Snowing"
+      }, {
+        day: "Friday",
+        highTemp: 770,
+        lowTemp: 210,
+        weather: "TYPHOON"
+      }]
+    }, _temp));
+  }
+
+  _createClass(Results, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement(_react.default.Fragment, null, this.state.forecast.map(function (forecast, index) {
+        return _react.default.createElement(_Forecast.default, {
+          key: index,
+          day: forecast.day,
+          highTemp: forecast.highTemp,
+          lowTemp: forecast.lowTemp,
+          weather: forecast.weather
+        });
+      }));
+    }
+  }]);
+
+  return Results;
+}(_react.default.Component);
+
+var _default = Results;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./Forecast":"Forecast.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = require("react-dom");
+
+var _Results = _interopRequireDefault(require("./Results"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22150,7 +22325,7 @@ function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("h1", null, "HERE WE GO");
+      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", null, "5 Day Forecast for 27529 "), _react.default.createElement(_Results.default, null));
     }
   }]);
 
@@ -22158,7 +22333,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 (0, _reactDom.render)(_react.default.createElement(App, null), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Results":"Results.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -22185,7 +22360,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62226" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59478" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
