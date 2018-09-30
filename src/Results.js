@@ -7,7 +7,8 @@ const API_KEY = process.env.API_KEY;
 class Results extends React.Component {
   state = {
     forecasts: [],
-    weekCast: []
+    weekCast: [],
+    loading: true
   };
 
   componentDidMount() {
@@ -20,7 +21,8 @@ class Results extends React.Component {
         return {
           date: forecast.dt_txt,
           temperature: Math.floor(forecast.main.temp),
-          forecast: forecast.weather[0].main,
+          description: forecast.weather[0].description,
+          icon: forecast.weather[0].icon,
           day: "",
           fullDate: ""
         };
@@ -60,8 +62,13 @@ class Results extends React.Component {
           weekCast.forEach(day => {
             //compare temps to get the right high and low temperatures
             if (day.day === forecast.day) {
+              let highTemp = day.highTemp;
               day.highTemp = Math.max(day.highTemp, forecast.temperature);
               day.lowTemp = Math.min(day.lowTemp, forecast.temperature);
+
+              if (highTemp != day.highTemp) {
+                day.icon = forecast.icon;
+              }
             }
           });
         } else {
@@ -70,20 +77,26 @@ class Results extends React.Component {
             day: forecast.day,
             highTemp: forecast.temperature,
             lowTemp: forecast.temperature,
-            weather: forecast.forecast,
-            fullDate: forecast.fullDate
+            description: forecast.description,
+            fullDate: forecast.fullDate,
+            icon: forecast.icon
           };
           weekCast.push(dayCast);
         }
       });
 
       this.setState({
-        weekCast: weekCast
+        weekCast,
+        loading: false
       });
     }
   };
 
   render() {
+    if (this.state.loading) {
+      return <h1>Gathering Weather Data...</h1>;
+    }
+
     return (
       <React.Fragment>
         {this.state.weekCast.map((cast, index) => {
@@ -93,7 +106,8 @@ class Results extends React.Component {
               fullDate={cast.fullDate}
               highTemp={cast.highTemp}
               lowTemp={cast.lowTemp}
-              weather={cast.weather}
+              description={cast.description}
+              icon={cast.icon}
             />
           );
         })}
