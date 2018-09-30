@@ -4,7 +4,7 @@ import img from "./placeholder.jpg";
 class Forecast extends React.Component {
   //True values will come in as props from parent
   render() {
-    const { day, highTemp, lowTemp, weather } = this.props;
+    const { day, highTemp, lowTemp, date, weather } = this.props;
     return (
       <React.Fragment>
         <h1>{day}</h1>
