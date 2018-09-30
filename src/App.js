@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h1>5 Day Forecast for 27529 </h1>
+        <h1>Forecast for 27529 </h1>
         <Results />
       </React.Fragment>
     );

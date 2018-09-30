@@ -11,6 +11,7 @@ class Results extends React.Component {
   };
 
   componentDidMount() {
+    //Pull in forecast data for the week
     let url = `http://api.openweathermap.org/data/2.5/forecast?zip=27529&units=imperial&APPID=${API_KEY}`;
     axios.get(url).then(res => {
       const weatherForecast = res.data.list;
@@ -20,7 +21,8 @@ class Results extends React.Component {
           date: forecast.dt_txt,
           temperature: Math.floor(forecast.main.temp),
           forecast: forecast.weather[0].main,
-          day: ""
+          day: "",
+          fullDate: ""
         };
       });
 
@@ -36,60 +38,62 @@ class Results extends React.Component {
   }
 
   getDay = forecast => {
+    //format the dates to get the day and to be a bit cleaner
     var date = new Date(forecast.date);
     forecast.day = date.toLocaleDateString("en-US", { weekday: "long" });
+
+    forecast.fullDate = date.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "2-digit"
+    });
     return forecast;
   };
 
   getWeekCast = () => {
+    //check if the forecast has been updated
     if (this.state.forecasts) {
-      // console.log(this.state.forecasts);
-
-      let days = [];
+      let weekCast = [];
       this.state.forecasts.forEach(forecast => {
-        let something = {
-          day: "",
-          highTemp: null,
-          lowTemp: null,
-          weather: ""
-        };
-
-        if (days.indexOf(forecast.day) == -1) {
-          something.day = forecast.day;
+        //check if the forecast data for that day exists
+        if (weekCast.some(day => day.day === forecast.day)) {
+          weekCast.forEach(day => {
+            //compare temps to get the right high and low temperatures
+            if (day.day === forecast.day) {
+              day.highTemp = Math.max(day.highTemp, forecast.temperature);
+              day.lowTemp = Math.min(day.lowTemp, forecast.temperature);
+            }
+          });
+        } else {
+          //if we don't have forecast data create a new object for the day
+          let dayCast = {
+            day: forecast.day,
+            highTemp: forecast.temperature,
+            lowTemp: forecast.temperature,
+            weather: forecast.forecast,
+            fullDate: forecast.fullDate
+          };
+          weekCast.push(dayCast);
         }
+      });
 
-        // if (something.day == forecast.day) {
-        //   something.highTemp = Math.max(
-        //     something.highTemp,
-        //     forecast.temperature
-        //   );
-        //   something.lowTemp = Math.min(something.lowTemp, forecast.temperature);
-        // }
-
-        days.push(something);
-        console.log(days);
-
-        return days;
+      this.setState({
+        weekCast: weekCast
       });
     }
-
-    let weekCast = [];
-
-    return weekCast;
   };
 
   render() {
     return (
       <React.Fragment>
-        {this.state.forecasts.map((forecast, index) => {
+        {this.state.weekCast.map((cast, index) => {
           return (
             <Forecast
               key={index}
-              date={forecast.date}
-              day={forecast.day}
-              highTemp={forecast.highTemp}
-              lowTemp={forecast.lowTemp}
-              weather={forecast.weather}
+              fullDate={cast.fullDate}
+              highTemp={cast.highTemp}
+              lowTemp={cast.lowTemp}
+              weather={cast.weather}
             />
           );
         })}
