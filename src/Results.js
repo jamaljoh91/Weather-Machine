@@ -1,22 +1,28 @@
 import React from "react";
 import Forecast from "./Forecast";
 import axios from "axios";
+import SearchBox from "./SearchBox";
+import { Consumer } from "./SearchContext";
 
 const API_KEY = process.env.API_KEY;
 
 class Results extends React.Component {
   state = {
-    forecasts: [],
-    weekCast: [],
     loading: true
   };
 
   componentDidMount() {
+    this.search();
+  }
+
+  search = () => {
     //Pull in forecast data for the week
-    let url = `http://api.openweathermap.org/data/2.5/forecast?zip=27529&units=imperial&APPID=${API_KEY}`;
+    let url = `http://api.openweathermap.org/data/2.5/forecast?zip=${
+      this.props.searchParams.zipcode
+    }&units=imperial&APPID=${API_KEY}`;
     axios.get(url).then(res => {
       const weatherForecast = res.data.list;
-
+      const location = res.data.city.name;
       let forecasts = weatherForecast.map(forecast => {
         return {
           date: forecast.dt_txt,
@@ -30,14 +36,17 @@ class Results extends React.Component {
 
       forecasts.forEach(forecast => this.getDay(forecast));
 
+      console.log("name", location);
+
       this.setState(
         {
-          forecasts
+          forecasts,
+          location
         },
         this.getWeekCast
       );
     });
-  }
+  };
 
   getDay = forecast => {
     //format the dates to get the day and to be a bit cleaner
@@ -94,11 +103,20 @@ class Results extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <h1>Gathering Weather Data...</h1>;
+      return (
+        <h1>
+          Gathering Weather Data...
+          <span aria-label="loading" role="img">
+            ⌛️
+          </span>
+        </h1>
+      );
     }
 
     return (
       <React.Fragment>
+        <SearchBox search={this.search} />
+        <h1>{this.state.location}</h1>
         {this.state.weekCast.map((cast, index) => {
           return (
             <Forecast
@@ -116,4 +134,10 @@ class Results extends React.Component {
   }
 }
 
-export default Results;
+export default function ResultsWithContext(props) {
+  return (
+    <Consumer>
+      {context => <Results {...props} searchParams={context} />}
+    </Consumer>
+  );
+}
