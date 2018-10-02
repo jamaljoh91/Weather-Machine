@@ -36,8 +36,6 @@ class Results extends React.Component {
 
       forecasts.forEach(forecast => this.getDay(forecast));
 
-      console.log("name", location);
-
       this.setState(
         {
           forecasts,
@@ -56,7 +54,7 @@ class Results extends React.Component {
     forecast.fullDate = date.toLocaleDateString("en-US", {
       weekday: "long",
       month: "long",
-      day: "2-digit"
+      day: "numeric"
     });
     return forecast;
   };
@@ -104,31 +102,44 @@ class Results extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <h1>
-          Gathering Weather Data...
-          <span aria-label="loading" role="img">
-            ⌛️
-          </span>
-        </h1>
+        <React.Fragment>
+          <SearchBox search={this.search} />
+          <h1>
+            Gathering Weather Data...
+            <span aria-label="loading" role="img">
+              ⌛️
+            </span>
+          </h1>
+          <h2>Enter another zipcode if search is frozen.</h2>
+        </React.Fragment>
       );
     }
 
+    const casts = this.state.weekCast.map((cast, index) => {
+      return (
+        <div key={index} className="weatherCards__cards">
+          <Forecast
+            fullDate={cast.fullDate}
+            highTemp={cast.highTemp}
+            lowTemp={cast.lowTemp}
+            description={cast.description}
+            icon={cast.icon}
+          />
+        </div>
+      );
+    });
+
     return (
       <React.Fragment>
-        <SearchBox search={this.search} />
-        <h1>{this.state.location}</h1>
-        {this.state.weekCast.map((cast, index) => {
-          return (
-            <Forecast
-              key={index}
-              fullDate={cast.fullDate}
-              highTemp={cast.highTemp}
-              lowTemp={cast.lowTemp}
-              description={cast.description}
-              icon={cast.icon}
-            />
-          );
-        })}
+        <div className="container">
+          <div className="weatherCards">
+            <SearchBox search={this.search} />
+            <h1 className="container__resultLocation">
+              5 Day Forecast For: {this.state.location}
+            </h1>
+            {casts}
+          </div>
+        </div>
       </React.Fragment>
     );
   }

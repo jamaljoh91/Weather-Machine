@@ -11,21 +11,20 @@ class SearchBox extends React.Component {
     return (
       <Consumer>
         {context => (
-          <React.Fragment>
+          <div className="search">
             <form onSubmit={this.handleFormSubmit}>
               <label htmlFor="zipcode">
-                Zipcode
+                Enter a US Zipcode
                 <input
                   onChange={context.handleZipcodeChange}
                   id="zipcode"
                   value={context.zipcode}
-                  placeholder="Enter Zipcode"
+                  placeholder="Find Forecast"
                 />
               </label>
-
-              <button>Search!</button>
+              <button>Get Forecast!</button>
             </form>
-          </React.Fragment>
+          </div>
         )}
       </Consumer>
     );

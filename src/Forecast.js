@@ -14,9 +14,11 @@ class Forecast extends React.Component {
           src={`http://openweathermap.org/img/w/${icon}.png`}
           alt={description}
         />
-        <p>{description}</p>
-        <p>{highTemp}°</p>
-        <p>{lowTemp}°</p>
+        <h2 className="cards__description">{description}</h2>
+        <div className="temperatures">
+          <h3 className="temperatures__high-temp">High: {highTemp}°</h3>
+          <h3 className="temperatures__low-temp">Low: {lowTemp}°</h3>
+        </div>
       </React.Fragment>
     );
   }
