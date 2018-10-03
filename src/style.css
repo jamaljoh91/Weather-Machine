@@ -63,6 +63,7 @@ body {
 .search input {
   margin-left: 5px;
   text-align: center;
+  outline-color: #fece00;
 }
 
 .search label {

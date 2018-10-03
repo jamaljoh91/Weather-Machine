@@ -3,6 +3,7 @@ import Forecast from "./Forecast";
 import axios from "axios";
 import SearchBox from "./SearchBox";
 import { Consumer } from "./SearchContext";
+import posed from "react-pose";
 
 const API_KEY = process.env.API_KEY;
 
@@ -115,9 +116,21 @@ class Results extends React.Component {
       );
     }
 
+    const Box = posed.div({
+      hoverable: true,
+      init: {
+        scale: 1,
+        boxShadow: "0px 0px 0px rgba(0,0,0,0)"
+      },
+      hover: {
+        scale: 1.2,
+        boxShadow: "0px 5px 10px rgba(0,0,0,0.2)"
+      }
+    });
+
     const casts = this.state.weekCast.map((cast, index) => {
       return (
-        <div key={index} className="weatherCards__cards">
+        <Box key={index} className="weatherCards__cards">
           <Forecast
             fullDate={cast.fullDate}
             highTemp={cast.highTemp}
@@ -125,7 +138,7 @@ class Results extends React.Component {
             description={cast.description}
             icon={cast.icon}
           />
-        </div>
+        </Box>
       );
     });
 
