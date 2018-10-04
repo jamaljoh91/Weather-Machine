@@ -1,5 +1,4 @@
 import React from "react";
-import img from "./placeholder.jpg";
 
 class Forecast extends React.Component {
   //True values will come in as props from parent

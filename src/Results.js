@@ -7,6 +7,20 @@ import posed from "react-pose";
 
 const API_KEY = process.env.API_KEY;
 
+const Box = posed.div({
+  hoverable: true,
+  init: {
+    scale: 1,
+    boxShadow: "0px 0px 0px rgba(0,0,0,0)",
+    transition: { duration: 50 }
+  },
+  hover: {
+    scale: 1.2,
+    boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
+    transition: { duration: 200 }
+  }
+});
+
 class Results extends React.Component {
   state = {
     loading: true
@@ -115,20 +129,6 @@ class Results extends React.Component {
         </React.Fragment>
       );
     }
-
-    const Box = posed.div({
-      hoverable: true,
-      init: {
-        scale: 1,
-        boxShadow: "0px 0px 0px rgba(0,0,0,0)",
-        transition: { duration: 50 }
-      },
-      hover: {
-        scale: 1.2,
-        boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
-        transition: { duration: 200 }
-      }
-    });
 
     const casts = this.state.weekCast.map((cast, index) => {
       return (
