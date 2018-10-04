@@ -120,11 +120,13 @@ class Results extends React.Component {
       hoverable: true,
       init: {
         scale: 1,
-        boxShadow: "0px 0px 0px rgba(0,0,0,0)"
+        boxShadow: "0px 0px 0px rgba(0,0,0,0)",
+        transition: { duration: 50 }
       },
       hover: {
         scale: 1.2,
-        boxShadow: "0px 5px 10px rgba(0,0,0,0.2)"
+        boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
+        transition: { duration: 200 }
       }
     });
 
