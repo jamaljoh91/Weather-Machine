@@ -48,6 +48,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-pose": "^3.3.6",
+    "react-scripts": "^2.0.4",
     "react-spring": "^5.9.0"
   }
 }
