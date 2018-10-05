@@ -32,7 +32,7 @@ class Results extends React.Component {
 
   search = () => {
     //Pull in forecast data for the week
-    let url = `http://api.openweathermap.org/data/2.5/forecast?zip=${
+    let url = `https://api.openweathermap.org/data/2.5/forecast?zip=${
       this.props.searchParams.zipcode
     }&units=imperial&APPID=${API_KEY}`;
     axios.get(url).then(res => {
