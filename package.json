@@ -11,10 +11,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \" src/**/*.{js,jsx,css,json}\"",
     "lint": "eslint \" eslint src/**/*,{js,jsx}\"",
-    "dev": "parcel src/index.html",
-    "start": "serve -s build",
-    "build": "parcel build src/index.html",
-    "heroku-postbuild": "parcel build src/index.html"
+    "dev": "parcel src/index.html"
   },
   "repository": {
     "type": "git",
@@ -49,7 +46,6 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-pose": "^3.3.6",
-    "react-spring": "^5.9.0",
-    "serve": "^10.0.2"
+    "react-spring": "^5.9.0"
   }
 }
