@@ -49,6 +49,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-pose": "^3.3.6",
-    "react-spring": "^5.9.0"
+    "react-spring": "^5.9.0",
+    "reactjs-localstorage": "0.0.7"
   }
 }
