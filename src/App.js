@@ -5,13 +5,14 @@ import SearchParams from "./SearchParams";
 import { Router } from "@reach/router";
 import { Provider } from "./SearchContext";
 import Details from "./Details";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      zipcode: "27529",
+      zipcode: reactLocalStorage.get("zipcode") || "27529",
       location: "Raleigh",
       forecasts: [],
       weekCast: [],
@@ -25,6 +26,7 @@ class App extends React.Component {
     this.setState({
       zipcode: event.target.value
     });
+    reactLocalStorage.set("zipcode", event.target.value);
   };
 
   handleLocationChange = location => {

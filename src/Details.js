@@ -2,6 +2,7 @@ import React from "react";
 import { Consumer } from "./SearchContext";
 import posed from "react-pose";
 import { Link } from "@reach/router";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 const Box = posed.div({
   hoverable: true,
@@ -20,8 +21,9 @@ const Box = posed.div({
 class Details extends React.Component {
   state = {
     forecasts: this.props.forecasts.forecasts,
-    hourlyForecasts: [],
-    fullDate: ""
+    hourlyForecasts:
+      reactLocalStorage.getObject("details").hourlyForecasts || [],
+    fullDate: reactLocalStorage.getObject("details").fullDate || []
   };
 
   componentDidMount() {
@@ -43,12 +45,22 @@ class Details extends React.Component {
           });
         });
 
-        this.setState({
-          fullDate: hourlyForecasts[0].fullDate,
-          hourlyForecasts: hourlyForecasts
-        });
+        this.setState(
+          {
+            fullDate: hourlyForecasts[0].fullDate,
+            hourlyForecasts: hourlyForecasts
+          },
+          this.saveToLocal
+        );
       }
     }
+  }
+
+  saveToLocal() {
+    reactLocalStorage.setObject("details", {
+      fullDate: this.state.fullDate,
+      hourlyForecasts: this.state.hourlyForecasts
+    });
   }
 
   render() {
@@ -84,7 +96,7 @@ class Details extends React.Component {
         <div className="weatherCards">
           <Link to="/" className="container__resultLocation">
             <span aria-label="back to home" role="img">
-              ⬅️ Back to Daily Forecast ☀️
+              ⬅️ Back to Daily Forecast
             </span>
           </Link>
           <h1 className="container__resultLocation">
