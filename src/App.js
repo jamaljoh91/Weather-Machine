@@ -4,6 +4,7 @@ import Results from "./Results";
 import SearchParams from "./SearchParams";
 import { Router } from "@reach/router";
 import { Provider } from "./SearchContext";
+import Details from "./Details";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,13 +15,27 @@ class App extends React.Component {
       location: "Raleigh",
       forecasts: [],
       weekCast: [],
-      handleZipcodeChange: this.handleZipcodeChange
+      handleZipcodeChange: this.handleZipcodeChange,
+      handleLocationChange: this.handleLocationChange,
+      handleForecastsChange: this.handleForecastsChange
     };
   }
 
   handleZipcodeChange = event => {
     this.setState({
       zipcode: event.target.value
+    });
+  };
+
+  handleLocationChange = location => {
+    this.setState({
+      location
+    });
+  };
+
+  handleForecastsChange = forecasts => {
+    this.setState({
+      forecasts
     });
   };
 
@@ -31,6 +46,7 @@ class App extends React.Component {
           <Router>
             <SearchParams path="/search" />
             <Results path="/" />
+            <Details path="/details/:id" />
           </Router>
         </Provider>
       </React.Fragment>
