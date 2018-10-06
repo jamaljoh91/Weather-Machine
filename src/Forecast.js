@@ -1,12 +1,21 @@
 import React from "react";
+import { Link } from "@reach/router";
 
 class Forecast extends React.Component {
   //True values will come in as props from parent
   render() {
-    const { fullDate, highTemp, lowTemp, description, icon } = this.props;
+    const {
+      id,
+      fullDate,
+      highTemp,
+      lowTemp,
+      description,
+      icon,
+      date
+    } = this.props;
 
     return (
-      <React.Fragment>
+      <Link to={`/details/${id}`} state={{ date }} className="forecast">
         <h1>{fullDate}</h1>
         <img
           style={{ width: "100px", height: "100px" }}
@@ -18,7 +27,7 @@ class Forecast extends React.Component {
           <h3 className="temperatures__high-temp">High: {highTemp}°</h3>
           <h3 className="temperatures__low-temp">Low: {lowTemp}°</h3>
         </div>
-      </React.Fragment>
+      </Link>
     );
   }
 }

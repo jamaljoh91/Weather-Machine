@@ -15,7 +15,7 @@ const Box = posed.div({
     transition: { duration: 50 }
   },
   hover: {
-    scale: 1.2,
+    scale: 1.04,
     boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
     transition: { duration: 200 }
   }
@@ -23,7 +23,8 @@ const Box = posed.div({
 
 class Results extends React.Component {
   state = {
-    loading: true
+    loading: true,
+    error: false
   };
 
   componentDidMount() {
@@ -31,34 +32,39 @@ class Results extends React.Component {
   }
 
   search = () => {
+    const { searchParams } = this.props;
+
     //Pull in forecast data for the week
     let url = `https://api.openweathermap.org/data/2.5/forecast?zip=${
       this.props.searchParams.zipcode
     }&units=imperial&APPID=${API_KEY}`;
-    axios.get(url).then(res => {
-      const weatherForecast = res.data.list;
-      const location = res.data.city.name;
-      let forecasts = weatherForecast.map(forecast => {
-        return {
-          date: forecast.dt_txt,
-          temperature: Math.floor(forecast.main.temp),
-          description: forecast.weather[0].description,
-          icon: forecast.weather[0].icon,
-          day: "",
-          fullDate: ""
-        };
-      });
+    axios
+      .get(url)
+      .then(res => {
+        const weatherForecast = res.data.list;
+        searchParams.handleLocationChange(res.data.city.name);
+        let forecasts = weatherForecast.map(forecast => {
+          return {
+            id: forecast.dt,
+            date: forecast.dt_txt,
+            temperature: Math.floor(forecast.main.temp),
+            description: forecast.weather[0].description,
+            icon: forecast.weather[0].icon,
+            day: "",
+            fullDate: ""
+          };
+        });
 
-      forecasts.forEach(forecast => this.getDay(forecast));
+        forecasts.forEach(forecast => this.getDay(forecast));
 
-      this.setState(
-        {
-          forecasts,
-          location
-        },
-        this.getWeekCast
+        searchParams.handleForecastsChange(forecasts);
+        this.getWeekCast();
+      })
+      .catch(
+        this.setState({
+          error: true
+        })
       );
-    });
   };
 
   getDay = forecast => {
@@ -76,9 +82,9 @@ class Results extends React.Component {
 
   getWeekCast = () => {
     //check if the forecast has been updated
-    if (this.state.forecasts) {
+    if (this.props.searchParams.forecasts) {
       let weekCast = [];
-      this.state.forecasts.forEach(forecast => {
+      this.props.searchParams.forecasts.forEach(forecast => {
         //check if the forecast data for that day exists
         if (weekCast.some(day => day.day === forecast.day)) {
           weekCast.forEach(day => {
@@ -96,12 +102,14 @@ class Results extends React.Component {
         } else {
           //if we don't have forecast data create a new object for the day
           let dayCast = {
+            id: forecast.id,
             day: forecast.day,
             highTemp: forecast.temperature,
             lowTemp: forecast.temperature,
             description: forecast.description,
             fullDate: forecast.fullDate,
-            icon: forecast.icon
+            icon: forecast.icon,
+            date: forecast.date
           };
           weekCast.push(dayCast);
         }
@@ -109,13 +117,14 @@ class Results extends React.Component {
 
       this.setState({
         weekCast,
-        loading: false
+        loading: false,
+        error: false
       });
     }
   };
 
   render() {
-    if (this.state.loading) {
+    if (this.state.loading || this.state.error) {
       return (
         <React.Fragment>
           <SearchBox search={this.search} />
@@ -134,11 +143,14 @@ class Results extends React.Component {
       return (
         <Box key={index} className="weatherCards__cards">
           <Forecast
+            id={cast.id}
             fullDate={cast.fullDate}
             highTemp={cast.highTemp}
             lowTemp={cast.lowTemp}
             description={cast.description}
             icon={cast.icon}
+            forecast={this.state.forecasts}
+            date={cast.date}
           />
         </Box>
       );
@@ -150,7 +162,7 @@ class Results extends React.Component {
           <div className="weatherCards">
             <SearchBox search={this.search} />
             <h1 className="container__resultLocation">
-              5 Day Forecast For: {this.state.location}
+              Weather Forecast For: {this.props.searchParams.location}
             </h1>
             {casts}
           </div>

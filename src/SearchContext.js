@@ -5,7 +5,9 @@ const SearchContext = React.createContext({
   forecasts: [],
   weekCast: "",
   location: "Raleigh",
-  handleZipcodeChange() {}
+  handleZipcodeChange() {},
+  handleLocationChange() {},
+  handleForecastsChange() {}
 });
 
 export const Provider = SearchContext.Provider;
