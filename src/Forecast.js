@@ -16,7 +16,7 @@ class Forecast extends React.Component {
 
     return (
       <Link to={`/details/${id}`} state={{ date }} className="forecast">
-        <h1>{fullDate}</h1>
+        <h2>{fullDate}</h2>
         <img
           style={{ width: "100px", height: "100px" }}
           src={`http://openweathermap.org/img/w/${icon}.png`}
